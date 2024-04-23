@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="commoditygoods_dw——lgl" id="LogicalDesign-4df" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="commoditygoods_dw——lgl" >
+		<table name="Dim_Agreement" prior="Entity" >
+			<column name="Agreement ID" type="INT" jt="4" mandatory="y" />
+			<column name="Master_Agreement" type="TEXT" jt="-1" />
+			<column name="Contract_Name" type="TEXT" jt="-1" />
+			<index name="pk_Dim_Agreement" unique="PRIMARY_KEY" >
+				<column name="Agreement ID" />
+			</index>
+		</table>
+		<table name="Dim_Commodity" prior="Entity" >
+			<column name="Commodity_id" type="INT" jt="4" mandatory="y" />
+			<column name="Commodity" type="TEXT" jt="-1" />
+			<column name="Commodity _Desription" type="TEXT" jt="-1" />
+			<column name="Extended_Description" type="TEXT" jt="-1" />
+			<index name="pk_Dim_Commodity" unique="PRIMARY_KEY" >
+				<column name="Commodity_id" />
+			</index>
+			<fk name="fk_Dim_Commodity_Facts_goods" virtual="y" to_schema="commoditygoods_dw——lgl.INSTANCE" to_table="Facts_goods" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="Commodity_id" pk="Commodity_id" />
+			</fk>
+		</table>
+		<table name="Dim_Time" prior="Country" >
+			<column name="Time_id" type="INT" jt="4" mandatory="y" />
+			<column name="Year" type="INT" jt="4" />
+			<column name="Quarter" type="INT" jt="4" />
+			<column name="Month_Name" type="VARCHAR" length="100" jt="12" />
+			<column name="Month_Number" type="INT" jt="4" />
+			<column name="Date_Number" type="DATE" jt="91" />
+			<column name="Date_Name" type="VARCHAR" length="100" jt="12" />
+			<index name="pk_Dim_Time" unique="PRIMARY_KEY" >
+				<column name="Time_id" />
+			</index>
+			<fk name="fk_Dim_Time_Facts_goods" virtual="y" to_schema="commoditygoods_dw——lgl.INSTANCE" to_table="Facts_goods" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="Time_id" pk="Time_id" />
+			</fk>
+		</table>
+		<table name="Dim_Unit" prior="Entity" >
+			<column name="Unit_ID" type="INT" jt="4" mandatory="y" />
+			<column name="Unit_of_measure" type="VARCHAR" jt="12" />
+			<column name="Unit_of_meas_Desc" type="TEXT" jt="-1" />
+			<index name="pk_Dim_Unit" unique="PRIMARY_KEY" >
+				<column name="Unit_ID" />
+			</index>
+		</table>
+		<table name="Dim_Vendor" prior="EntityDim_Vendor" >
+			<column name="Vendor_id" prior="Vendor ID" type="INT" jt="4" mandatory="y" />
+			<column name="Vendor_Code" type="TEXT" jt="-1" />
+			<column name="LGL_NM" type="TEXT" jt="-1" />
+			<column name="AD_LN_1" type="TEXT" jt="-1" />
+			<column name="AD_LN_2" type="TEXT" jt="-1" />
+			<column name="City" type="TEXT" jt="-1" />
+			<column name="Street" type="TEXT" jt="-1" />
+			<column name="Zip" type="INT" jt="4" />
+			<column name="Country" type="TEXT" jt="-1" />
+			<index name="pk_Dim_Vendor" unique="PRIMARY_KEY" >
+				<column name="Vendor_id" />
+			</index>
+			<fk name="fk_Dim_Vendor_Facts_goods" virtual="y" to_schema="commoditygoods_dw——lgl.INSTANCE" to_table="Facts_goods" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="Vendor_id" pk="Vendor_id" />
+			</fk>
+		</table>
+		<table name="Facts_goods" prior="Facts" >
+			<column name="Fact _id" prior="Fact ID" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="Unit_Price" type="INT" jt="4" />
+			<column name="ITM_TOT_AM" type="DECIMAL" length="5" decimal="2" jt="3" mandatory="y" />
+			<column name="Quantity" type="DECIMAL" length="5" decimal="2" jt="3" />
+			<column name="Agreement_id" type="INT" jt="4" mandatory="y" />
+			<column name="Commodity_id" type="INT" jt="4" />
+			<column name="Unit_id" type="INT" jt="4" mandatory="y" />
+			<column name="Vendor_id" type="INT" jt="4" />
+			<column name="Time_id" type="INT" jt="4" />
+			<index name="pk_Facts_goods" unique="PRIMARY_KEY" >
+				<column name="Fact _id" />
+				<column name="Unit_id" />
+				<column name="Agreement_id" />
+			</index>
+			<index name="unq_Commodity_id" unique="UNIQUE_INDEX" >
+				<column name="Commodity_id" />
+			</index>
+			<index name="unq_Time_id" unique="UNIQUE_INDEX" >
+				<column name="Time_id" />
+			</index>
+			<index name="unq_Vendor_id" unique="UNIQUE_INDEX" >
+				<column name="Vendor_id" />
+			</index>
+			<fk name="fk_Facts_goods_Dim_Unit" virtual="y" to_schema="commoditygoods_dw——lgl.INSTANCE" to_table="Dim_Unit" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="Unit_id" pk="Unit_ID" />
+			</fk>
+			<fk name="fk_Facts_goods_Dim_Agreement" virtual="y" to_schema="commoditygoods_dw——lgl.INSTANCE" to_table="Dim_Agreement" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="Agreement_id" pk="Agreement ID" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-6fa" show_relation="columns" >
+		<entity schema="commoditygoods_dw——lgl.INSTANCE" name="Dim_Agreement" color="C1D8EE" x="204" y="323" />
+		<entity schema="commoditygoods_dw——lgl.INSTANCE" name="Dim_Commodity" color="C1D8EE" x="510" y="119" />
+		<entity schema="commoditygoods_dw——lgl.INSTANCE" name="Dim_Time" color="C1D8EE" x="850" y="459" />
+		<entity schema="commoditygoods_dw——lgl.INSTANCE" name="Dim_Unit" color="C1D8EE" x="204" y="493" />
+		<entity schema="commoditygoods_dw——lgl.INSTANCE" name="Dim_Vendor" color="C1D8EE" x="816" y="204" />
+		<entity schema="commoditygoods_dw——lgl.INSTANCE" name="Facts_goods" color="C1D8EE" x="527" y="357" />
+		<callout x="51" y="51" pointer="Round" >
+			<comment><![CDATA[This is a layout - a diagram with tools.
+- Create new entities by right-clicking the layout. 
+- Double-click entity headers to edit.
+- For a better understanding of the schema, create multiple layouts.
+- Deploy the model into the database by converting it first to the physical design.]]></comment>
+		</callout>
+	</layout>
+</project>
