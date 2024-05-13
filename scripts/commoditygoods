@@ -1,0 +1,10 @@
+!pip install azure-storage-blob
+!pip install boto3
+!pip install pyarrow
+
+import pandas as pd
+import numpy as np
+import json
+import requests
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from io import StringIO
