@@ -7,5 +7,3 @@ with open(config_file_path,'r') as config_file:
 
 ConnectionString = config["connectionString"]
 print(ConnectionString)
-
-
