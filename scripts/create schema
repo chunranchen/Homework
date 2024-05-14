@@ -1,0 +1,66 @@
+CREATE SCHEMA IF NOT EXISTS "commoditygoods";
+
+CREATE  TABLE "commoditygoods".dim_agreement ( 
+	agreement_id         integer  NOT NULL  ,
+	master_agreement     text    ,
+	contract_name        text    ,
+	CONSTRAINT pk_dim_agreement PRIMARY KEY ( agreement_id )
+ );
+
+CREATE  TABLE "commoditygoods".dim_commodity ( 
+	commodity_id         integer  NOT NULL  ,
+	commodity            text    ,
+	commodity__desription text    ,
+	extended_description text    ,
+	CONSTRAINT pk_dim_commodity PRIMARY KEY ( commodity_id )
+ );
+
+CREATE  TABLE "commoditygoods".dim_time ( 
+	time_id              integer  NOT NULL  ,
+	"year"               integer    ,
+	quarter              integer    ,
+	month_name           varchar(100)    ,
+	month_number         integer    ,
+	date_number          date    ,
+	date_name            varchar(100)    ,
+	CONSTRAINT pk_dim_time PRIMARY KEY ( time_id )
+ );
+
+CREATE  TABLE "commoditygoods".dim_unit ( 
+	unit_id              integer  NOT NULL  ,
+	unit_of_measure      varchar    ,
+	unit_of_meas_desc    text    ,
+	CONSTRAINT pk_dim_unit PRIMARY KEY ( unit_id )
+ );
+
+CREATE  TABLE "commoditygoods".dim_vendor ( 
+	vendor_id            integer  NOT NULL  ,
+	vendor_code          text    ,
+	lgl_nm               text    ,
+	ad_ln_1              text    ,
+	ad_ln_2              text    ,
+	city                 text    ,
+	street               text    ,
+	zip                  integer    ,
+	country              text    ,
+	CONSTRAINT pk_dim_vendor PRIMARY KEY ( vendor_id )
+ );
+
+CREATE  TABLE "commoditygoods".facts_goods ( 
+	fact__id             bigint  NOT NULL  ,
+	unit_price           integer    ,
+	itm_tot_am           numeric(5,2)  NOT NULL  ,
+	quantity             numeric(5,2)    ,
+	agreement_id         integer  NOT NULL  ,
+	commodity_id         integer  NOT NULL  ,
+	unit_id              integer  NOT NULL  ,
+	vendor_id            integer  NOT NULL  ,
+	time_id              integer  NOT NULL  ,
+	CONSTRAINT pk_facts_goods PRIMARY KEY ( fact__id, unit_id, agreement_id )
+ );
+
+CREATE UNIQUE INDEX unq_commodity_id ON "commoditygoods".facts_goods ( commodity_id );
+
+CREATE UNIQUE INDEX unq_time_id ON "commoditygoods".facts_goods ( time_id );
+
+CREATE UNIQUE INDEX unq_vendor_id ON "commoditygoods".facts_goods ( vendor_id );
