@@ -11,6 +11,8 @@ Data Modeling
 
 Tools: DB Schema,Microsoft Azure,Visual Studio,PostgreSQL,Tableau
 
+Process: Use DB Schema to create dimension modeling. Use Python script within Visual Studio and Colab to load data to Microsoft Azure, Reformatting, Cleaning Data and Transformation, Create dimensional tables and fact table. Store the data in the PostgreSQL Datawarehouse. Use Tableau for visualization.
+
 <img width="609" alt="Screenshot 2024-05-11 at 12 56 20 AM" src="https://github.com/chunranchen/Homework/assets/159973185/0e7b2edd-828f-4288-9e35-5446290296a0">
 
 
