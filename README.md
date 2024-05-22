@@ -9,14 +9,8 @@ Data Modeling
 <img width="899" alt="data model" src="https://github.com/chunranchen/Homework/assets/159973185/9014cfd3-db0b-4d91-8455-2c32bfe3221c">
 
 
-Tools: 
+Tools: DB Schema,Microsoft Azure,Visual Studio,PostgreSQL,Tableau
 
-DB Schema
 
-Microsoft Azure
-
-Visual Studio
-
-PostgreSQL
 
 <img width="572" alt="Screenshot 2024-05-11 at 12 30 03 AM" src="https://github.com/chunranchen/Homework/assets/159973185/acea9d3e-e7a0-4a8a-97af-dd1d954aaf70">
